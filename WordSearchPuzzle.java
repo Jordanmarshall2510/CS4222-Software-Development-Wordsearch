@@ -1,9 +1,13 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class WordSearchPuzzle {
     private char[][] puzzle ;
-    private List<String> puzzleWords ;
+    private ArrayList<String> puzzleWords ;
 
-    public WordSearchPuzzle(List<String> userSpecifiedWords){
-	// puzzle generation using user specified words
+    public WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
+	userSpecifiedWords = puzzleWords;
+        // puzzle generation using user specified words
         // The user passes in a list of words to be used
         // for generating the word search grid.
     }
@@ -34,10 +38,10 @@ public class WordSearchPuzzle {
     // of the character total.
     //
     // You will also need to add the methods specified below
-    public List<String> getWordSearchList(){
-        
+    public ArrayList<String> getWordSearchList(){
+        return puzzleWords;
     }
-    public char[][] getPuzzleAsGrid(){
+    /*public char[][] getPuzzleAsGrid(){
         
     }
     public String getPuzzleAsString(){
@@ -48,5 +52,5 @@ public class WordSearchPuzzle {
     }
     private void generateWordSearchPuzzle(){
         
-    }
+    }*/
 }
