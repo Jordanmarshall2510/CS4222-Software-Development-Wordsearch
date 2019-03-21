@@ -4,8 +4,10 @@ import java.util.Collections;
 public class WordSearchPuzzle {
     private char[][] puzzle ;
     private ArrayList<String> puzzleWords ;
+    private String puzzleString;
     
     public WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
+        
     }
     public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest){
     
@@ -23,23 +25,32 @@ public class WordSearchPuzzle {
     // of the character total.
     //
     // You will also need to add the methods specified below
-    /*public ArrayList<String> getWordSearchList(){
-        
-    }*/
+    public ArrayList<String> getWordSearchList(){
+        return puzzleWords;
+    }
     public char[][] getPuzzleAsGrid(){
         int puzzleSize = puzzleWords.size();
         String allWords = "";
         for(int i = 0; i < puzzleSize; i++){
             allWords += puzzleWords.get(i);           
-            }
-           int puzzleLength = (int)(allWords.length()*1.75);
+        }
+        int puzzleLength = (int)(allWords.length()*1.75);
         puzzle = new char[puzzleLength][puzzleLength];
         return puzzle;
     }
-    /*public String getPuzzleAsString(){
-        
+    public String getPuzzleAsString(){
+        for(int i = 0; i < puzzle.length; i++){
+            for(int j = 0; j <= puzzle[0].length; j++){
+                if(j == puzzle.length){
+                    puzzleString += "\n";
+                }else{
+                    puzzleString += puzzle[i][j] + " ";
+                }
+            }
+        }
+        return puzzleString;
     }
-    public void showWordSearchPuzzle(boolean hide){
+    /*public void showWordSearchPuzzle(boolean hide){
         
     }
     private void generateWordSearchPuzzle(){
