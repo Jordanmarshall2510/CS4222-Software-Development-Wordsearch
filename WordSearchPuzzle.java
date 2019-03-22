@@ -36,13 +36,24 @@ public class WordSearchPuzzle {
         puzzle = new char[puzzleLength][puzzleLength];
         return puzzle;
     }
-    /*public String getPuzzleAsString(){
-        
+
+    public List<String> getWordSearchList(){
+
     }
+
+    public String getPuzzleAsString(){
+        String str[] = new String[puzzleWords.size()]; 
+        for (int j = 0; j < puzzleWords.size(); j++) { 
+            str[j] = puzzleWords.get(j); 
+        }
+        String string = str.deepToString;
+        return str; 
+    }
+
     public void showWordSearchPuzzle(boolean hide){
         
     }
+
     private void generateWordSearchPuzzle(){
         
-    }*/
-}
+    }
