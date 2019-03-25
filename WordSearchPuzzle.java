@@ -5,10 +5,12 @@ public class WordSearchPuzzle {
     private char[][] puzzle ;
     private ArrayList<String> puzzleWords ;
     private String puzzleString;
+    private List<String> list;
     
     public WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
         
     }
+    
     public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest){
     
     }
@@ -25,9 +27,11 @@ public class WordSearchPuzzle {
     // of the character total.
     //
     // You will also need to add the methods specified below
+    
     public ArrayList<String> getWordSearchList(){
         return puzzleWords;
     }
+
     public char[][] getPuzzleAsGrid(){
         int puzzleSize = puzzleWords.size();
         String allWords = "";
@@ -41,7 +45,8 @@ public class WordSearchPuzzle {
 
 
     public List<String> getWordSearchList(){
-
+        list = new ArrayList<String>(Arrays.asList(puzzleWords));
+        return list
     }
 
     public String getPuzzleAsString(){
@@ -54,7 +59,11 @@ public class WordSearchPuzzle {
     }
 
     public void showWordSearchPuzzle(boolean hide){
-
+        if(hide ==true){
+            //hides all random characters revealing the answers
+        }else{
+            //displays all characters including answers
+        }
 	}
     
     public String getPuzzleAsString(){
@@ -70,10 +79,6 @@ public class WordSearchPuzzle {
         return puzzleString;
     }
     
-    public void showWordSearchPuzzle(boolean hide){
-        
-    }
-
     private void generateWordSearchPuzzle(){
         
     }
