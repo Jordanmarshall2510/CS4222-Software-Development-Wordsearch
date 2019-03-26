@@ -3,7 +3,9 @@ import java.util.Collections;
 
 public class WordSearchPuzzle {
     private char[][] puzzle ;
-    private ArrayList<String> puzzleWords;
+    private ArrayList<String> puzzleWords;    
+    private List<String> list;
+    private String puzzleString;
 
     public void addWord(String addWord){
        puzzleWords.add(addWord);
@@ -12,11 +14,11 @@ public class WordSearchPuzzle {
     public void displayList(){
         System.out.println(puzzleWords);
     }
-
+    
     public WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
         
     }
-
+    
     public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest){
     
     }
@@ -33,28 +35,58 @@ public class WordSearchPuzzle {
     // of the character total.
     //
     // You will also need to add the methods specified below
-    /*public ArrayList<String> getWordSearchList(){
-        
-    }*/
+
+    public ArrayList<String> getWordSearchList(){
+        return puzzleWords;
+    }
 
     public char[][] getPuzzleAsGrid(){
         int puzzleSize = puzzleWords.size();
         String allWords = "";
         for(int i = 0; i < puzzleSize; i++){
             allWords += puzzleWords.get(i);           
-            }
-           int puzzleLength = (int)(allWords.length()*1.75);
+        }
+        int puzzleLength = (int)(allWords.length()*1.75);
         puzzle = new char[puzzleLength][puzzleLength];
         return puzzle;
     }
 
-    /*public String getPuzzleAsString(){
-        
+    public List<String> getWordSearchList(){
+        list = new ArrayList<String>(Arrays.asList(puzzleWords));
+        return list
     }
+
+    public String getPuzzleAsString(){
+        String str[] = new String[puzzleWords.size()]; 
+        for (int j = 0; j < puzzleWords.size(); j++) { 
+            str[j] = puzzleWords.get(j); 
+        }
+        String string = str.deepToString;
+        return str; 
+    }
+
     public void showWordSearchPuzzle(boolean hide){
-        
+        if(hide ==true){
+            //hides all random characters revealing the answers
+        }else{
+            //displays all characters including answers
+        }
+	}
+    
+    public String getPuzzleAsString(){
+        for(int i = 0; i < puzzle.length; i++){
+            for(int j = 0; j <= puzzle[0].length; j++){
+                if(j == puzzle.length){
+                    puzzleString += "\n";
+                }else{
+                    puzzleString += puzzle[i][j] + " ";
+                }
+            }
+        }
+        return puzzleString;
     }
+    
     private void generateWordSearchPuzzle(){
         
-    }*/
+    }
 }
