@@ -3,10 +3,20 @@ import java.util.Collections;
 
 public class WordSearchPuzzle {
     private char[][] puzzle ;
-    private ArrayList<String> puzzleWords ;
-    
-    public WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
+    private ArrayList<String> puzzleWords;
+
+    public void addWord(String addWord){
+       puzzleWords.add(addWord);
     }
+
+    public void displayList(){
+        System.out.println(puzzleWords);
+    }
+
+    public WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
+        
+    }
+
     public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest){
     
     }
@@ -26,6 +36,7 @@ public class WordSearchPuzzle {
     /*public ArrayList<String> getWordSearchList(){
         
     }*/
+
     public char[][] getPuzzleAsGrid(){
         int puzzleSize = puzzleWords.size();
         String allWords = "";
@@ -36,6 +47,7 @@ public class WordSearchPuzzle {
         puzzle = new char[puzzleLength][puzzleLength];
         return puzzle;
     }
+
     /*public String getPuzzleAsString(){
         
     }
