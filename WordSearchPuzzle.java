@@ -2,17 +2,19 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.io.FileReader; 
+import java.io.BufferedReader;
+import java.io.IOException; 
 
 public class WordSearchPuzzle {
     private char[][] puzzle ;
     private ArrayList<String> puzzleWords;    
-    private List<String> list;
+    private ArrayList<String> list;
     private String puzzleString;
     
     public WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
         
-    }
-    
+    }   
     public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest){
         // BasicEnglish.txt - the 850 words of Basic English
         // BNCwords.txt - 5456 words
@@ -27,19 +29,17 @@ public class WordSearchPuzzle {
             }
             aBufferReader.close();
             aFileReader.close();
-            return puzzleWords ;
+            return puzzleWords;
         }
         catch(IOException x) {
             return null ;
         }
-
         int characterTotal;
         for(int i = 0; i <= puzzleWords.size(); i++){
-        	characterTotal = puzzleWords.get(i);
+            characterTotal = puzzleWords.get(i);
         }
         int gridDim = Math.sqrt(characterTotal);
     }
-
     // The dimensions of the puzzle grid should be set
     // by summing the lengths of the words being used in the
     // puzzle and multiplying the sum by 1.5 or 1.75
@@ -52,12 +52,10 @@ public class WordSearchPuzzle {
     // of the character total.
     //
     // You will also need to add the methods specified below
-
-	public List<String> getWordSearchList(){
-        list = new ArrayList<String>(Arrays.asList(puzzleWords));
-        return list
+    public ArrayList<String> getWordSearchList(){
+        list = new ArrayList<String>(Array.asList(puzzleWords)); //puzzleWords is already a list wtf
+        return list;
     }
-
     public char[][] getPuzzleAsGrid(){
         int puzzleSize = puzzleWords.size();
         String allWords = "";
@@ -68,27 +66,15 @@ public class WordSearchPuzzle {
         puzzle = new char[puzzleLength][puzzleLength];
         return puzzle;
     }
-
-    
-
-    public String getPuzzleAsString(){
+    /*public String getPuzzleAsString(){ //why would you write a function that i did already ?
         String str[] = new String[puzzleWords.size()]; 
         for (int j = 0; j < puzzleWords.size(); j++) { 
             str[j] = puzzleWords.get(j); 
         }
         String string = str.deepToString;
         return str; 
-    }
-
-    public void showWordSearchPuzzle(boolean hide){
-        if(hide == true){
-            //hides all random characters revealing the answers
-        }else{
-            //displays all characters including answers
-        }
-	}
-    
-    /*public String getPuzzleAsString(){
+    }*/
+    public String getPuzzleAsString(){
         for(int i = 0; i < puzzle.length; i++){
             for(int j = 0; j <= puzzle[0].length; j++){
                 if(j == puzzle.length){
@@ -99,9 +85,21 @@ public class WordSearchPuzzle {
             }
         }
         return puzzleString;
-    }*/
-    
+    }
+    public void showWordSearchPuzzle(boolean hide){
+        if(hide == true){
+            //hides all random characters revealing the answers
+        }else{
+            //displays all characters including answers
+        }
+    }    
     private void generateWordSearchPuzzle(){
-        
+        //get random position
+        //remember tryied and used positions
+        //decide to be vertical or horizontal both ways
+        //check if there are enough spaces
+        //put in word
+        //repeat until no words left
+        //fill rest with random letters
     }
 }

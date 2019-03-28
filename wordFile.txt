@@ -1,0 +1,7 @@
+Red
+Yellow
+Blue
+Car
+Vehicle
+Cat
+Dog
