@@ -1,5 +1,3 @@
-//All the methods are in order here from the specification sheet
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.io.FileReader; 
@@ -11,6 +9,7 @@ public class WordSearchPuzzle {
     private ArrayList<String> puzzleWords;    
     private ArrayList<String> list;
     private String puzzleString;
+    private ArrayList<String> wordsPosition;
     
     public WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
         
@@ -38,20 +37,8 @@ public class WordSearchPuzzle {
         for(int i = 0; i <= puzzleWords.size(); i++){
             characterTotal = puzzleWords.get(i);
         }
-        int gridDim = Math.sqrt(characterTotal);
+        int gridDim = (int)(Math.sqrt(characterTotal));
     }
-    // The dimensions of the puzzle grid should be set
-    // by summing the lengths of the words being used in the
-    // puzzle and multiplying the sum by 1.5 or 1.75
-    // or some other (appropriate) scaling factor to
-    // ensure that the grid will have enough additional
-    // characters to obscure the puzzle words. Once
-    // you have calculated how many characters you are
-    // going to have in the grid you can calculate the
-    // grid dimensions by getting the square root (rounded up)
-    // of the character total.
-    //
-    // You will also need to add the methods specified below
     public ArrayList<String> getWordSearchList(){
         list = new ArrayList<String>(Array.asList(puzzleWords)); //puzzleWords is already a list wtf
         return list;
@@ -66,14 +53,6 @@ public class WordSearchPuzzle {
         puzzle = new char[puzzleLength][puzzleLength];
         return puzzle;
     }
-    /*public String getPuzzleAsString(){ //why would you write a function that i did already ?
-        String str[] = new String[puzzleWords.size()]; 
-        for (int j = 0; j < puzzleWords.size(); j++) { 
-            str[j] = puzzleWords.get(j); 
-        }
-        String string = str.deepToString;
-        return str; 
-    }*/
     public String getPuzzleAsString(){
         for(int i = 0; i < puzzle.length; i++){
             for(int j = 0; j <= puzzle[0].length; j++){
@@ -94,12 +73,65 @@ public class WordSearchPuzzle {
         }
     }    
     private void generateWordSearchPuzzle(){
-        //get random position
-        //remember tryied and used positions
-        //decide to be vertical or horizontal both ways
-        //check if there are enough spaces
-        //put in word
-        //repeat until no words left
-        //fill rest with random letters
+        for(int i; i < puzzleWords.size(); i++){
+            int rows = (int) (Math.random()*puzzle.length); 
+            int cols = (int) (Math.random()*puzzle.length);
+            String S = puzzleWords.get(i);
+            int k; int rotation; int direction; int irow; int icol;
+            irow = rows; icol = cols;
+            for(int j; j < S.length(); j++){                       
+                rotation = (int) (Math.random() *2);
+                direction = (int) (Math.random() *2);                
+                if (rotation == 0){
+                    if (direction == 0 || S.length() <= (puzzle.length - cols)){
+                        puzzle[rows][cols] = S.charAt(k);
+                        k++;
+                        cols++;                    
+                    }else if (direction == 1 || S.length() <= ( cols-1 )){
+                        puzzle[rows][cols] = S.charAt(k);
+                        k++;                        
+                        cols--;
+                    }
+                }else if(rotation == 1){
+                    if (direction == 0 || S.length() <= (puzzle.length - rows)){
+                        puzzle[rows][cols] = S.charAt(k);
+                        k++;
+                        rows++;
+                    }else if (direction == 1 || S.length() <= (rows - 1)){
+                        puzzle[rows][cols] = S.charAt(k);
+                        k++;
+                        rows--;
+                    }
+                }
+            }
+            String Srotation;
+            String Sdirection;
+            if (rotation == 0 && direction == 0 ){
+                Srotation = "horizontal";
+                Sdirection = "right to left";
+            }else if (rotation == 0 && direction == 1 ){
+                Srotation = "horizontal";
+                Sdirection = "left to right";
+            }else if (rotation == 1 && direction == 0 ){
+                Srotation = "vertical";
+                Sdirection = "upwards";
+            }else if (rotation == 1 && direction == 1 ){
+                Srotation = "vertical";
+                Sdirection = "downwards";
+            }
+            wordsPosition.add("Word "+S+" is "+Srotation+" and "+Sdirection+" at position x="+irow+" y="+icol+" to x="+rows+" y="+cols);
+            i++;
+        }
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+        for(int row = 0; row <= puzzle.length;row++){
+            for(int col;col <= puzzle.length;col++){
+                int ran = (int) (Math.random()*alphabet.length());
+                char chran = alphabet.charAt(ran);
+                if (puzzle[row][col] == ' '){
+                    puzzle[row][col] = chran;
+                }
+            }
+        }
+        //Still need to make a thing that checks if user supplied words or not
     }
 }
