@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
 import java.io.FileReader; 
 import java.io.BufferedReader;
@@ -10,6 +11,7 @@ public class WordSearchPuzzle {
     private ArrayList<String> list;
     private String puzzleString;
     private ArrayList<String> wordsPosition;
+    private ArrayList<String> justWords;
     
     public WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
         
@@ -39,9 +41,8 @@ public class WordSearchPuzzle {
         }
         int gridDim = (int)(Math.sqrt(characterTotal));
     }
-    public ArrayList<String> getWordSearchList(){
-        list = new ArrayList<String>(Array.asList(puzzleWords)); //puzzleWords is already a list wtf
-        return list;
+    public List<String> getWordSearchList(){
+        return puzzleWords;
     }
     public char[][] getPuzzleAsGrid(){
         int puzzleSize = puzzleWords.size();
@@ -67,9 +68,9 @@ public class WordSearchPuzzle {
     }
     public void showWordSearchPuzzle(boolean hide){
         if(hide == true){
-            //hides all random characters revealing the answers
+            System.out.println(justWords);
         }else{
-            //displays all characters including answers
+            System.out.println(wordsPosition);
         }
     }    
     private void generateWordSearchPuzzle(){
@@ -120,6 +121,7 @@ public class WordSearchPuzzle {
                 Sdirection = "downwards";
             }
             wordsPosition.add("Word "+S+" is "+Srotation+" and "+Sdirection+" at position x="+irow+" y="+icol+" to x="+rows+" y="+cols);
+            justWords.add(S);
             i++;
         }
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
