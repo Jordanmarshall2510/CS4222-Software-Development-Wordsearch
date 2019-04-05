@@ -12,14 +12,14 @@ public class WordSearchPuzzle {
     private String puzzleString;
     private ArrayList<String> wordsPosition;
     private ArrayList<String> justWords;
-    private ArrayList<String> wordsInOrder;
+    private ArrayList<String> wordsInOrder;		//
     
     public WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
         
     }   
     public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest){
        
-       for(int i = 0; i <= wordCount;i++){
+       for(int i = 0; i <= wordCount;i++){			//Unfinished
         int ran = (int) (Math.random()*wordcount);
         String wordUse = puzzleWords.get(ran);
         int varNum = wordUse.length();
