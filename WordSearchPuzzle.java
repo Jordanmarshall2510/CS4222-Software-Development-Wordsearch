@@ -12,34 +12,21 @@ public class WordSearchPuzzle {
     private String puzzleString;
     private ArrayList<String> wordsPosition;
     private ArrayList<String> justWords;
+    private ArrayList<String> wordsInOrder;
     
     public WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
         
     }   
     public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest){
-        // BasicEnglish.txt - the 850 words of Basic English
-        // BNCwords.txt - 5456 words
-        try {
-            FileReader aFileReader = new FileReader(wordFile);
-            BufferedReader aBufferReader = new BufferedReader(aFileReader);
-            String lineFromFile;
-            lineFromFile = aBufferReader.readLine() ;
-            while (lineFromFile != null) {  
-                puzzleWords.add(lineFromFile.toUpperCase());
-                lineFromFile = aBufferReader.readLine() ;
-            }
-            aBufferReader.close();
-            aFileReader.close();
-            return puzzleWords;
+       
+       for(int i = 0; i <= wordCount;i++){
+        int ran = (int) (Math.random()*wordcount);
+        String wordUse = puzzleWords.get(ran);
+        int varNum = wordUse.length();
+        if(varNum>= shortest && varNum >= longest){
+            wordsInOrder.add(wordUse);
         }
-        catch(IOException x) {
-            return null ;
-        }
-        int characterTotal;
-        for(int i = 0; i <= puzzleWords.size(); i++){
-            characterTotal = puzzleWords.get(i);
-        }
-        int gridDim = (int)(Math.sqrt(characterTotal));
+       }
     }
     public List<String> getWordSearchList(){
         return puzzleWords;
