@@ -20,7 +20,7 @@ public class WordSearchPuzzle {
     public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest){
        
        for(int i = 0; i <= wordCount;i++){			//Unfinished
-        int ran = (int) (Math.random()*wordcount);
+        int ran = (int) (Math.random()*wordCount);
         String wordUse = puzzleWords.get(ran);
         int varNum = wordUse.length();
         if(varNum>= shortest && varNum >= longest){
