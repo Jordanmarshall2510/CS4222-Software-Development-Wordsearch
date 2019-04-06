@@ -61,13 +61,16 @@ public class WordSearchPuzzle {
         }
     }    
     private void generateWordSearchPuzzle(){
-        for(int i; i < puzzleWords.size(); i++){
+        for(int i = 0; i < puzzleWords.size(); i++){
             int rows = (int) (Math.random()*puzzle.length); 
             int cols = (int) (Math.random()*puzzle.length);
             String S = puzzleWords.get(i);
-            int k; int rotation; int direction; int irow; int icol;
+            int k = 0;
+            int rotation = 0;
+            int direction = 0;
+            int irow; int icol;
             irow = rows; icol = cols;
-            for(int j; j < S.length(); j++){                       
+            for(int j = 0; j < S.length(); j++){                       
                 rotation = (int) (Math.random() *2);
                 direction = (int) (Math.random() *2);                
                 if (rotation == 0){
@@ -113,7 +116,7 @@ public class WordSearchPuzzle {
         }
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
         for(int row = 0; row <= puzzle.length;row++){
-            for(int col;col <= puzzle.length;col++){
+            for(int col = 0;col <= puzzle.length;col++){
                 int ran = (int) (Math.random()*alphabet.length());
                 char chran = alphabet.charAt(ran);
                 if (puzzle[row][col] == ' '){
