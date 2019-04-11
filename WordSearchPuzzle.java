@@ -18,24 +18,10 @@ public class WordSearchPuzzle {
         
     }   
     public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest){
-       largest = 0;
+       longest = 0;
        int position = 0;
-        for(int i = 0; i <= wordCount;i++){
-            int ran = (int) (Math.random()*puzzleWords);
-            String wordUse = puzzleWords.get(ran);
-            int wordSize = worduse.length();
-            for(int r = 0;r <= ){
-                if (wordSize >= largest) {
-                    wordsInOrder.add(position,wordUse);
-                }
-                else{
-                    position++;
-                }
-            }
-
-
        for(int i = 0; i <= wordCount;i++){
-        int ran = (int) (Math.random()*puzzleWords.size);
+        int ran = (int) (Math.random()*puzzleWords.size());
         String wordUse = puzzleWords.get(ran);
         int varNum = wordUse.length();
         if(varNum>= shortest && varNum >= longest){
