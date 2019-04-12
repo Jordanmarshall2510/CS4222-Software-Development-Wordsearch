@@ -15,10 +15,26 @@ public class WordSearchPuzzle {
     private ArrayList<String> wordsInOrder;		//
     
     public WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
-        
+        // puzzle generation using user specified words
+            // The user passes in a list of words to be used
+            // for generating the word search grid.
+
     }   
     public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest){
-       longest = 0;
+            try {
+            FileReader aFileReader = new FileReader(wordFile);
+            BufferedReader aBufferReader = new BufferedReader(aFileReader);
+            String lineFromFile;
+            ArrayList<String> words = new ArrayList<String>();
+            lineFromFile = aBufferReader.readLine() ;
+            while (lineFromFile != null) {  
+                words.add(lineFromFile.toUpperCase());
+                lineFromFile = aBufferReader.readLine() ;
+           }
+
+            aBufferReader.close();
+            aFileReader.close();
+            
        int position = 0;
        for(int i = 0; i <= wordCount;i++){
         int ran = (int) (Math.random()*puzzleWords.size());
@@ -27,11 +43,18 @@ public class WordSearchPuzzle {
         if(varNum>= shortest && varNum >= longest){
             wordsInOrder.add(wordUse);
         }
-        else
+        else{
             i--;
-       }
+        }
+        }
     }
+            catch(IOException x) {
+        }
 
+
+
+
+       }
 
     public List<String> getWordSearchList(){
         return puzzleWords;
@@ -100,8 +123,8 @@ public class WordSearchPuzzle {
                     }
                 }
             }
-            String Srotation;
-            String Sdirection;
+            String Srotation = " ";
+            String Sdirection = " ";
             if (rotation == 0 && direction == 0 ){
                 Srotation = "horizontal";
                 Sdirection = "right to left";
