@@ -20,7 +20,8 @@ public class WordSearch {
         puzzleWords = userSpecifiedWords;
         getPuzzleAsGridNoReturn();
         generateWordSearchPuzzle();
-    }   
+    }  
+
     public void WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest){
     BufferedReader in = null;
         try {
@@ -47,9 +48,11 @@ public class WordSearch {
     public List<String> getWordSearchList(){
         return puzzleWords;
     }
+
     public char[][] getPuzzleAsGrid(){
         return puzzle;
     }
+
     private void getPuzzleAsGridNoReturn(){
         int puzzleSize = puzzleWords.size();
         String allWords = "";
@@ -59,6 +62,7 @@ public class WordSearch {
         int puzzleLength = (int)(allWords.length()*1.75);
         puzzle = new char[puzzleLength][puzzleLength];
     }
+
     public String getPuzzleAsString(){
         for(int i = 0; i < puzzle.length; i++){
             for(int j = 0; j <= puzzle[0].length; j++){
@@ -71,6 +75,7 @@ public class WordSearch {
         }
         return puzzleString;
     }
+
     public void showWordSearchPuzzle(boolean hide){
         if(hide == true){
             System.out.println(justWords);
@@ -78,6 +83,7 @@ public class WordSearch {
             System.out.println(wordsPosition);
         }
     }
+    
     private void generateWordSearchPuzzle(){       
         for(int i = 0; i < puzzleWords.size(); i++){
             int rows = (int) (Math.random()*puzzle.length); 
@@ -146,6 +152,7 @@ public class WordSearch {
             }
         }
     }
+    
     private void fileSort(int wordCount, int shortest, int longest){
         longest = 0;
         int position = 0;
