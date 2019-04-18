@@ -34,7 +34,16 @@ public class WordSearchPuzzle {
 
             aBufferReader.close();
             aFileReader.close();
-            
+            return words ;
+        }
+            catch(IOException x) {
+            return null ;
+        }
+
+
+
+        
+       longest = 0;
        int position = 0;
        for(int i = 0; i <= wordCount;i++){
         int ran = (int) (Math.random()*puzzleWords.size());
@@ -43,18 +52,11 @@ public class WordSearchPuzzle {
         if(varNum>= shortest && varNum >= longest){
             wordsInOrder.add(wordUse);
         }
-        else{
+        else
             i--;
-        }
-        }
-    }
-            catch(IOException x) {
-        }
-
-
-
-
        }
+    }
+
 
     public List<String> getWordSearchList(){
         return puzzleWords;
@@ -123,8 +125,8 @@ public class WordSearchPuzzle {
                     }
                 }
             }
-            String Srotation = " ";
-            String Sdirection = " ";
+            String Srotation;
+            String Sdirection;
             if (rotation == 0 && direction == 0 ){
                 Srotation = "horizontal";
                 Sdirection = "right to left";
