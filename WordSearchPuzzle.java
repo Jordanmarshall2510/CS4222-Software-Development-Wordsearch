@@ -124,8 +124,8 @@ public class WordSearchPuzzle {
                     }
                 }
             }
-            String Srotation;
-            String Sdirection;
+            String Srotation = "";
+            String Sdirection = "";
             if (rotation == 0 && direction == 0 ){
                 Srotation = "horizontal";
                 Sdirection = "right to left";
@@ -167,6 +167,9 @@ public class WordSearchPuzzle {
         }
         else
             i--;
+       }
+       for (int i = 0;i < wordCount; i++){
+
        }
     }
 }
