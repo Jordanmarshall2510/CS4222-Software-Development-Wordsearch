@@ -14,8 +14,7 @@ public class WordSearchPuzzle {
     private String puzzleString;
     private ArrayList<String> wordsPosition;
     private ArrayList<String> justWords;
-    private ArrayList<String> wordsInOrder;		//
-    private boolean face = false;
+    private ArrayList<String> wordsInOrder;
 
     public WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
         userSpecifiedWords = puzzleWords;
@@ -23,7 +22,6 @@ public class WordSearchPuzzle {
 
     }   
     public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest){
-        face = true;
     BufferedReader in = null;
         try {
             FileReader aFileReader = new FileReader("wordFile");
@@ -40,19 +38,8 @@ public class WordSearchPuzzle {
         catch(IOException x) {
             throw null;
         } 
-
-        longest = 0;
-        int position = 0;
-        for(int i = 0; i <= wordCount;i++){
-        int ran = (int) (Math.random()*puzzleWords.size());
-        String wordUse = puzzleWords.get(ran);
-        int varNum = wordUse.length();
-        if(varNum>= shortest && varNum >= longest){
-            wordsInOrder.add(wordUse);
-        }
-        else
-            i--;
-       }
+        fileSort(wordCount, shortest, longest);
+        generateWordSearchPuzzle();
     }
 
 
@@ -155,7 +142,7 @@ public class WordSearchPuzzle {
         }
         //Still need to make a thing that checks if user supplied words or not
     }
-    private void fileSort(String wordFile, int wordCount, int shortest, int longest){
+    private void fileSort(int wordCount, int shortest, int longest){
         longest = 0;
         int position = 0;
         for(int i = 0; i <= wordCount;i++){
@@ -168,8 +155,26 @@ public class WordSearchPuzzle {
         else
             i--;
        }
-       for (int i = 0;i < wordCount; i++){
-
+       int shortPos = 0;
+       int longPos = 0;
+       for(int j = 1; j < puzzleWords.size(); j++){
+            if ((puzzleWords.get(j)).length() == shortest){
+                shortPos=j;
+                j=puzzleWords.size();
+            }
        }
+       for(int k=0; k<puzzleWords.size(); k++){
+            if ((puzzleWords.get(k)).length() == longest){
+                longPos = k;
+       }
+        ArrayList<String> tempStor = new ArrayList<String>(); 
+       for (int i = 0;i < wordCount; i++){
+        int rand = (int)(((Math.random() * (longPos-shortPos)) + shortPos));
+        String randomWord = puzzleWords.get(rand);
+        tempStor.add(randomWord);
+       }
+
+       puzzleWords = tempStor;
     }
+}
 }
