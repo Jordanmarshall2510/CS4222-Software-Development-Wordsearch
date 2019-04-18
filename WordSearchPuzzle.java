@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.io.FileReader; 
 import java.io.BufferedReader;
 import java.io.IOException; 
+import java.util.Scanner;
+import java.io.FileNotFoundException;
 
 public class WordSearchPuzzle {
     private char[][] puzzle ;
@@ -13,39 +15,35 @@ public class WordSearchPuzzle {
     private ArrayList<String> wordsPosition;
     private ArrayList<String> justWords;
     private ArrayList<String> wordsInOrder;		//
-    
+    private boolean face = false;
+
     public WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
-        // puzzle generation using user specified words
-            // The user passes in a list of words to be used
-            // for generating the word search grid.
+        userSpecifiedWords = puzzleWords;
+        generateWordSearchPuzzle();
 
     }   
     public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest){
-            try {
-            FileReader aFileReader = new FileReader(wordFile);
+        face = true;
+    BufferedReader in = null;
+        try {
+            FileReader aFileReader = new FileReader("wordFile");
             BufferedReader aBufferReader = new BufferedReader(aFileReader);
             String lineFromFile;
-            ArrayList<String> words = new ArrayList<String>();
             lineFromFile = aBufferReader.readLine() ;
             while (lineFromFile != null) {  
-                words.add(lineFromFile.toUpperCase());
+                puzzleWords.add(lineFromFile.toUpperCase());
                 lineFromFile = aBufferReader.readLine() ;
-           }
-
+            }
             aBufferReader.close();
             aFileReader.close();
-            return words ;
         }
-            catch(IOException x) {
-            return null ;
-        }
+        catch(IOException x) {
+            throw null;
+        } 
 
-
-
-        
-       longest = 0;
-       int position = 0;
-       for(int i = 0; i <= wordCount;i++){
+        longest = 0;
+        int position = 0;
+        for(int i = 0; i <= wordCount;i++){
         int ran = (int) (Math.random()*puzzleWords.size());
         String wordUse = puzzleWords.get(ran);
         int varNum = wordUse.length();
@@ -91,6 +89,7 @@ public class WordSearchPuzzle {
         }
     }    
     private void generateWordSearchPuzzle(){
+        
         for(int i = 0; i < puzzleWords.size(); i++){
             int rows = (int) (Math.random()*puzzle.length); 
             int cols = (int) (Math.random()*puzzle.length);
@@ -155,5 +154,19 @@ public class WordSearchPuzzle {
             }
         }
         //Still need to make a thing that checks if user supplied words or not
+    }
+    private void fileSort(String wordFile, int wordCount, int shortest, int longest){
+        longest = 0;
+        int position = 0;
+        for(int i = 0; i <= wordCount;i++){
+        int ran = (int) (Math.random()*puzzleWords.size());
+        String wordUse = puzzleWords.get(ran);
+        int varNum = wordUse.length();
+        if(varNum>= shortest && varNum >= longest){
+            wordsInOrder.add(wordUse);
+        }
+        else
+            i--;
+       }
     }
 }
