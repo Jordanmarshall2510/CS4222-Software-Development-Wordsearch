@@ -7,21 +7,21 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
-public class WordSearchPuzzle {
-    private char[][] puzzle ;
-    private ArrayList<String> puzzleWords;    
-    private ArrayList<String> list;
+public class WordSearch {
+    private char[][] puzzle;
+    private ArrayList<String> puzzleWords = new ArrayList<String>();    
+    private ArrayList<String> list = new ArrayList<String>();;
     private String puzzleString;
-    private ArrayList<String> wordsPosition;
-    private ArrayList<String> justWords;
-    private ArrayList<String> wordsInOrder;
+    private ArrayList<String> wordsPosition = new ArrayList<String>();;
+    private ArrayList<String> justWords = new ArrayList<String>();;
+    private ArrayList<String> wordsInOrder = new ArrayList<String>();;
 
-    public WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
-        userSpecifiedWords = puzzleWords;
+    public void WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
+        puzzleWords = userSpecifiedWords;
+        getPuzzleAsGridNoReturn();
         generateWordSearchPuzzle();
-
     }   
-    public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest){
+    public void WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest){
     BufferedReader in = null;
         try {
             FileReader aFileReader = new FileReader("wordFile");
@@ -38,6 +38,7 @@ public class WordSearchPuzzle {
         catch(IOException x) {
             throw null;
         } 
+        getPuzzleAsGridNoReturn();
         fileSort(wordCount, shortest, longest);
         generateWordSearchPuzzle();
     }
@@ -47,6 +48,9 @@ public class WordSearchPuzzle {
         return puzzleWords;
     }
     public char[][] getPuzzleAsGrid(){
+        return puzzle;
+    }
+    private void getPuzzleAsGridNoReturn(){
         int puzzleSize = puzzleWords.size();
         String allWords = "";
         for(int i = 0; i < puzzleSize; i++){
@@ -54,7 +58,6 @@ public class WordSearchPuzzle {
         }
         int puzzleLength = (int)(allWords.length()*1.75);
         puzzle = new char[puzzleLength][puzzleLength];
-        return puzzle;
     }
     public String getPuzzleAsString(){
         for(int i = 0; i < puzzle.length; i++){
@@ -74,9 +77,8 @@ public class WordSearchPuzzle {
         }else{
             System.out.println(wordsPosition);
         }
-    }    
-    private void generateWordSearchPuzzle(){
-        
+    }
+    private void generateWordSearchPuzzle(){       
         for(int i = 0; i < puzzleWords.size(); i++){
             int rows = (int) (Math.random()*puzzle.length); 
             int cols = (int) (Math.random()*puzzle.length);
@@ -84,7 +86,8 @@ public class WordSearchPuzzle {
             int k = 0;
             int rotation = 0;
             int direction = 0;
-            int irow; int icol;
+            int irow = 0;
+            int icol = 0;
             irow = rows; icol = cols;
             for(int j = 0; j < S.length(); j++){                       
                 rotation = (int) (Math.random() *2);
@@ -126,13 +129,15 @@ public class WordSearchPuzzle {
                 Srotation = "vertical";
                 Sdirection = "downwards";
             }
-            wordsPosition.add("Word "+S+" is "+Srotation+" and "+Sdirection+" at position x="+irow+" y="+icol+" to x="+rows+" y="+cols);
+            String sentance = "Word "+S+" is "+Srotation+" and "+Sdirection+" at position x="+irow+" y="+icol+" to x="+rows+" y="+cols;
+            wordsPosition.add(sentance);
             justWords.add(S);
             i++;
         }
+        
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
         for(int row = 0; row <= puzzle.length;row++){
-            for(int col = 0;col <= puzzle.length;col++){
+            for(int col = 0;col <= puzzle[0].length;col++){
                 int ran = (int) (Math.random()*alphabet.length());
                 char chran = alphabet.charAt(ran);
                 if (puzzle[row][col] == ' '){
@@ -140,7 +145,6 @@ public class WordSearchPuzzle {
                 }
             }
         }
-        //Still need to make a thing that checks if user supplied words or not
     }
     private void fileSort(int wordCount, int shortest, int longest){
         longest = 0;
