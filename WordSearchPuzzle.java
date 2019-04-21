@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
-public class WordSearch {
+public class WordSearchPuzzle {
     private char[][] puzzle;
     private ArrayList<String> puzzleWords = new ArrayList<String>();    
     private ArrayList<String> list = new ArrayList<String>();;
