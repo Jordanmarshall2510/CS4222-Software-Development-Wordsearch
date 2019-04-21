@@ -57,7 +57,7 @@ public class WordSearch {
 
 		for(i=0; i<puzzle.length; i++){
 			for(j=0; j<puzzle[0].length; j++){
-				int z = (int)((Math.random()* a.length));//creates a random number between 0 and the length of the list “a” – 1
+				int z = (int)((Math.random()* a.length));//creates a random number between 0 and the length of the list a – 1
 				puzzle[i][j] = a[z] ;//Inserts the character at position z in the list a into the puzzle at coordinates [i][j]
 				System.out.print(puzzle[i][j] + " ");//prints the action
 			}
