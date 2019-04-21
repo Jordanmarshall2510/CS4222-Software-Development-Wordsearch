@@ -16,6 +16,7 @@ public class WordSearchPuzzle {
     private ArrayList<String> justWords = new ArrayList<String>();;
     private ArrayList<String> wordsInOrder = new ArrayList<String>();;
 
+
     public void WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
         puzzleWords = userSpecifiedWords;
         getPuzzleAsGridNoReturn();
