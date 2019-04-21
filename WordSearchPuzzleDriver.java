@@ -3,7 +3,10 @@ import java.util.ArrayList;
 public class WordSearchPuzzleDriver{	
 
 	public static void main(String args[]){
+
 		WordSearchPuzzle test = new WordSearchPuzzle();
+
+		WordSearch mainTest = new WordSearch();
 		ArrayList<String> example = new ArrayList<String>();
 				example.add("Yellow");
 				example.add("Red");
@@ -11,8 +14,8 @@ public class WordSearchPuzzleDriver{
 				example.add("Green");
 
 		//Generates a wordsearch puzzle using an arrayList
-		test.WordSearchPuzzle(example); //Creates a new instance of WordSearch Puzzle using an ArrayLis
+		WordSearchPuzzle test1 = new WordSearchPuzzle(example);
 		//Generates a wordsearch puzzle using a file
-		test.WordSearchPuzzle("wordFile", 6, 3, 10);
+		WordSearchPuzzle test2 = new WordSearchPuzzle("wordFile", 6, 3, 10);
 	}
-    }
+}
