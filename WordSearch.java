@@ -53,7 +53,7 @@ public class WordSearch {
 
 	int i,j;
 
-	char[] a = {("q"),("w"),("e"),("r"),("t"),("y"),("u"),("i"),("o"),("p"),("a"),("s"),("d"),("f"),("g"),("h"),("j"),("k"),("l"),("z"),("x"),("c"),("v"),("b"),("n"),("m")} ;
+	char[] a = {('q'),('w'),('e'),('r'),('t'),('y'),('u'),('i'),('o'),('p'),('a'),('s'),('d'),('f'),('g'),('h'),('j'),('k'),('l'),('z'),('x'),('c'),('v'),('b'),('n'),('m')} ;
 
 		for(i=0; i<puzzle.length; i++){
 			for(j=0; j<puzzle[0].length; j++){
@@ -65,7 +65,6 @@ public class WordSearch {
 		}
 		return puzzle;
 		}
-    }
 
     private void getPuzzleAsGridNoReturn(){
         int puzzleSize = puzzleWords.size();
