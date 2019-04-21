@@ -1,7 +1,6 @@
-Red
-Yellow
-Blue
 Car
-Vehicle
-Cat
-Dog
+Plane
+Boat
+Bike
+Motorbike
+Helicopter
