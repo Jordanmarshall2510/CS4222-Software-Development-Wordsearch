@@ -4,188 +4,228 @@ import java.util.Collections;
 import java.io.FileReader; 
 import java.io.BufferedReader;
 import java.io.IOException; 
-import java.util.Scanner;
 import java.io.FileNotFoundException;
 
-public class WordSearch {
-    private char[][] puzzle;
-    private ArrayList<String> puzzleWords = new ArrayList<String>();    
-    private ArrayList<String> list = new ArrayList<String>();;
-    private String puzzleString;
-    private ArrayList<String> wordsPosition = new ArrayList<String>();;
-    private ArrayList<String> justWords = new ArrayList<String>();;
-    private ArrayList<String> wordsInOrder = new ArrayList<String>();;
+public class WordSearchPuzzle{
+	private char[][] puzzle ;
+	private ArrayList<String> puzzleWords ;
 
-    public void WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
-        puzzleWords = userSpecifiedWords;
-        getPuzzleAsGridNoReturn();
-        generateWordSearchPuzzle();
-    }  
+	public WordSearchPuzzle(ArrayList<String> userSpecifiedWords){
+		int i;
+		int longest = 0;
+		userSpecifiedWords.replaceAll(String::toUpperCase);
+		for(i=0; i<userSpecifiedWords.size(); i++){
+			if(userSpecifiedWords.get(i).length() > longest){
+				longest = userSpecifiedWords.get(i).length();
+			}
+		}
+		for(i = 0 ; i < userSpecifiedWords.size(); i++){
+			if( userSpecifiedWords.get(i).length() > longest){
+			longest = userSpecifiedWords.get(i).length() ;
+			}
+		}
+		this.puzzle = new char[longest+2][longest+2];
+		puzzleWords = userSpecifiedWords ;
+	}
 
-    public void WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest){
-    BufferedReader in = null;
-        try {
-            FileReader aFileReader = new FileReader("wordFile");
-            BufferedReader aBufferReader = new BufferedReader(aFileReader);
-            String lineFromFile;
-            lineFromFile = aBufferReader.readLine() ;
-            while (lineFromFile != null) {  
-                puzzleWords.add(lineFromFile.toUpperCase());
-                lineFromFile = aBufferReader.readLine() ;
-            }
-            aBufferReader.close();
-            aFileReader.close();
-        }
-        catch(IOException x) {
-            throw null;
-        } 
-        getPuzzleAsGridNoReturn();
-        fileSort(wordCount, shortest, longest);
-        generateWordSearchPuzzle();
-    }
+	public WordSearchPuzzle(String wordFile, int wordCount,int shortest, int longest){
+		int temp ;
+		if(shortest > longest){
+			temp = longest ;
+			longest = shortest ;
+			shortest = temp ;
+		}
+		puzzleWords = loadWordsFromFile(wordFile, shortest, longest);
+		ArrayList<String> chosen = new ArrayList<String>();
+		int i,j,large=0,sum = 0;
+		for(i=0; i<wordCount; i++){
+			int pos = (int)((Math.random()* puzzleWords.size()));
+			chosen.add(puzzleWords.get(pos));
+		}
+		for(i = 0 ; i < chosen.size(); i++){
+			if( chosen.get(i).length() > large){
+			large = chosen.get(i).length() ;
+			}
+		}
+		int count = 0 ;
+		for(int x = 0 ; x < chosen.size();x++){
+			count = count + chosen.get(x).length() ;
+		}
+		count = (int)((Math.sqrt(count))*1.75) ;
+		this.puzzle = new char[count][count];
+		puzzleWords = chosen;
+	}
 
+	private ArrayList<String> loadWordsFromFile(String filename,int shortest, int longest){
+		try {
+			FileReader aFileReader = new FileReader(filename);
+			BufferedReader aBufferReader = new BufferedReader(aFileReader);
+			String lineFile;
+			int stringLength ;
+			ArrayList<String> words = new ArrayList<String>();
+			lineFile = aBufferReader.readLine() ;
+			while (lineFile != null) {
+				stringLength = lineFile.length() ;
+				if(stringLength >= shortest && stringLength <= longest) {
+					words.add(lineFile.toUpperCase());
+				}
+				lineFile = aBufferReader.readLine() ;
+			}
+			aBufferReader.close();
+			aFileReader.close();
+			return words ;
+		}
+		catch(IOException x){
+			return null;
+		}
+	}
 
-    public List<String> getWordSearchList(){
-        return puzzleWords;
-    }
+	public void showWordSearchPuzzle(){
+		generateWordsearchpuzzle() ;
+		int i,j;
+		for(i=0; i<puzzleWords.size(); i++){
+			System.out.println(puzzleWords.get(i));
+		}
+		System.out.println(getPuzzleAsString());
+	}
 
-    public char[][] getPuzzleAsGrid(){
-        return puzzle;
-    }
+	public ArrayList<String> getWordSearchList(){
+		return this.puzzleWords;
+	}
 
-    private void getPuzzleAsGridNoReturn(){
-        int puzzleSize = puzzleWords.size();
-        String allWords = "";
-        for(int i = 0; i < puzzleSize; i++){
-            allWords += puzzleWords.get(i);           
-        }
-        int puzzleLength = (int)(allWords.length()*1.75);
-        puzzle = new char[puzzleLength][puzzleLength];
-    }
+	public char[][] getpuzzle(){
+			return this.puzzle ;
+		}
 
-    public String getPuzzleAsString(){
-        for(int i = 0; i < puzzle.length; i++){
-            for(int j = 0; j <= puzzle[0].length; j++){
-                if(j == puzzle.length){
-                    puzzleString += "\n";
-                }else{
-                    puzzleString += puzzle[i][j] + " ";
-                }
-            }
-        }
-        return puzzleString;
-    }
+	public String getPuzzleAsString(){
+		String a = " ";
+		int c,r = 0 ;
+		for( c = 0; c < puzzle[0].length; c++){
+			for( r = 0; r < puzzle.length; r++){
+				a = a + (puzzle[r][c])+ " ";
+			}
+		if( r == puzzle.length){
+			a = a + " \n " ;
+			r = 0 ;
+		}}
+		return a ;
+	}
 
-    public void showWordSearchPuzzle(boolean hide){
-        if(hide == true){
-            System.out.println(justWords);
-        }else{
-            System.out.println(wordsPosition);
-        }
-    }
-    
-    private void generateWordSearchPuzzle(){       
-        for(int i = 0; i < puzzleWords.size(); i++){
-            int rows = (int) (Math.random()*puzzle.length); 
-            int cols = (int) (Math.random()*puzzle.length);
-            String S = puzzleWords.get(i);
-            int k = 0;
-            int rotation = 0;
-            int direction = 0;
-            int irow = 0;
-            int icol = 0;
-            irow = rows; icol = cols;
-            for(int j = 0; j < S.length(); j++){                       
-                rotation = (int) (Math.random() *2);
-                direction = (int) (Math.random() *2);                
-                if (rotation == 0){
-                    if (direction == 0 || S.length() <= (puzzle.length - cols)){
-                        puzzle[rows][cols] = S.charAt(k);
-                        k++;
-                        cols++;                    
-                    }else if (direction == 1 || S.length() <= ( cols-1 )){
-                        puzzle[rows][cols] = S.charAt(k);
-                        k++;                        
-                        cols--;
-                    }
-                }else if(rotation == 1){
-                    if (direction == 0 || S.length() <= (puzzle.length - rows)){
-                        puzzle[rows][cols] = S.charAt(k);
-                        k++;
-                        rows++;
-                    }else if (direction == 1 || S.length() <= (rows - 1)){
-                        puzzle[rows][cols] = S.charAt(k);
-                        k++;
-                        rows--;
-                    }
-                }
-            }
-            String Srotation = "";
-            String Sdirection = "";
-            if (rotation == 0 && direction == 0 ){
-                Srotation = "horizontal";
-                Sdirection = "right to left";
-            }else if (rotation == 0 && direction == 1 ){
-                Srotation = "horizontal";
-                Sdirection = "left to right";
-            }else if (rotation == 1 && direction == 0 ){
-                Srotation = "vertical";
-                Sdirection = "upwards";
-            }else if (rotation == 1 && direction == 1 ){
-                Srotation = "vertical";
-                Sdirection = "downwards";
-            }
-            String sentance = "Word "+S+" is "+Srotation+" and "+Sdirection+" at position x="+irow+" y="+icol+" to x="+rows+" y="+cols;
-            wordsPosition.add(sentance);
-            justWords.add(S);
-            i++;
-        }
-        
-        String alphabet = "abcdefghijklmnopqrstuvwxyz";
-        for(int row = 0; row <= puzzle.length;row++){
-            for(int col = 0;col <= puzzle[0].length;col++){
-                int ran = (int) (Math.random()*alphabet.length());
-                char chran = alphabet.charAt(ran);
-                if (puzzle[row][col] == ' '){
-                    puzzle[row][col] = chran;
-                }
-            }
-        }
-    }
-    
-    private void fileSort(int wordCount, int shortest, int longest){
-        longest = 0;
-        int position = 0;
-        for(int i = 0; i <= wordCount;i++){
-        int ran = (int) (Math.random()*puzzleWords.size());
-        String wordUse = puzzleWords.get(ran);
-        int varNum = wordUse.length();
-        if(varNum>= shortest && varNum >= longest){
-            wordsInOrder.add(wordUse);
-        }
-        else
-            i--;
-       }
-       int shortPos = 0;
-       int longPos = 0;
-       for(int j = 1; j < puzzleWords.size(); j++){
-            if ((puzzleWords.get(j)).length() == shortest){
-                shortPos=j;
-                j=puzzleWords.size();
-            }
-       }
-       for(int k=0; k<puzzleWords.size(); k++){
-            if ((puzzleWords.get(k)).length() == longest){
-                longPos = k;
-       }
-        ArrayList<String> tempStor = new ArrayList<String>(); 
-       for (int i = 0;i < wordCount; i++){
-        int rand = (int)(((Math.random() * (longPos-shortPos)) + shortPos));
-        String randomWord = puzzleWords.get(rand);
-        tempStor.add(randomWord);
-       }
+	public char[][] getPuzzleAsGrid(){
+			int i,j;
+			char[] hide = {('A'),('B'),('C'),('D'),('E'),('F'),('G'),('H'),('I'),('J'),('K'),('L'),('M'),('N'),('O'),('P'),('Q'),('R'),('S'),('T'),('U'),('V'),('W'),('X'),('Y'),('Z')} ;
+			for(i=0; i<puzzle.length; i++){
+				for(j=0; j<puzzle[0].length; j++){
+					int z = (int)((Math.random()* hide.length));
+					puzzle[i][j] = hide[z] ;
+					System.out.print(puzzle[i][j] + " ");
+				}
+				System.out.println();
+			}
+			return puzzle;
+		}
 
-       puzzleWords = tempStor;
-    }
-}
+	private void generateWordsearchpuzzle(){
+		int i = 0, rand, wordUsed = 0, row=0, col=0, k, empty = 0;
+		puzzle = this.puzzle ;
+		while(i < puzzleWords.size()){
+		rand = (int)(Math.random()*4) ;
+		row = (int)(Math.random()*(puzzle[0].length)) ;
+		col = (int)(Math.random()*(puzzle.length)) ;
+		int coltemp = col ;
+		int rowtemp = row ;
+		if(rand == 0){
+			if(puzzle[0].length - (col+1) >=puzzleWords.get(i).length()){
+				for(empty = 0 ; empty <puzzleWords.get(i).length(); empty++){
+					if((Character.isLetter(puzzle[row][coltemp]))==false){
+						coltemp++ ;
+					}else{
+					empty = puzzleWords.get(i).length()+1 ;
+					}
+				}
+			if(empty == puzzleWords.get(i).length()){
+				k = 0 ;
+				while( k < puzzleWords.get(i).length() ){
+					puzzle[row][col] = puzzleWords.get(i).charAt(k) ;
+					col++ ;
+					k++ ;
+				}
+				i++;
+				}
+			}
+		else if(rand == 1){
+		if(puzzle.length - (col+1)>=puzzleWords.get(i).length() ){
+			for(empty = 0 ; empty <puzzleWords.get(i).length(); empty++){
+				if((Character.isLetter(puzzle[row][coltemp]))==false){
+					coltemp++ ;
+				}else{
+				empty = puzzleWords.get(i).length()+1 ;
+			}
+		}
+		if(empty == puzzleWords.get(i).length()){
+			k = puzzleWords.get(i).length()-1 ;
+			while( k >= 0 ){
+				puzzle[row][col] = puzzleWords.get(i).charAt(k) ;
+				col++;
+				k--;
+			}
+			i++ ;
+			}
+		}
+		}else if(rand == 2){
+			if(puzzle[0].length - (row+1) >=puzzleWords.get(i).length() && (Character.isLetter(puzzle[row][col])==false)){
+				for(empty = 0 ; empty <puzzleWords.get(i).length(); empty++){
+					if((Character.isLetter(puzzle[rowtemp][col]))==false){
+						rowtemp++ ;
+					}else{
+						empty = puzzleWords.get(i).length()+1 ;
+					}
+		}
+		if(empty == puzzleWords.get(i).length()){
+			k = puzzleWords.get(i).length()-1 ;
+			while( k >= 0 ){
+				puzzle[row][col] = puzzleWords.get(i).charAt(k) ;
+				row++;
+				k-- ;
+			}
+			i++ ;
+			}
+
+		}
+		}
+		else if(rand == 3){
+			if(puzzle[0].length - (row+1) >=puzzleWords.get(i).length() ){
+				for(empty = 0 ; empty <puzzleWords.get(i).length(); empty++){
+					if((Character.isLetter(puzzle[rowtemp][col]))==false){
+						rowtemp++ ;
+					}else{
+					empty = puzzleWords.get(i).length()+1 ;
+					}
+					}
+				if(empty == puzzleWords.get(i).length()){
+				k = 0 ;
+				while(k < puzzleWords.get(i).length() ){
+					puzzle[row][col] = puzzleWords.get(i).charAt(k) ;
+					row++;
+					k++;
+				}
+				i++ ;
+			}
+			}
+			}
+		}
+		int a,j;
+		char[] fill = {('A'),('B'),('C'),('D'),('E'),('F'),('G'),('H'),('I'),('J'),('K'),('L'),('M'),('N'),('O'),('P'),('Q'),('R'),('S'),('T'),('U'),('V'),('W'),('X'),('Y'),('Z')} ;
+		for(i=0;i < puzzleWords.size(); i++){
+			for(a=0; a<puzzle.length; a++){
+				for(j=0; j<puzzle[0].length; j++){
+					if(Character.isLetter(puzzle[a][j])==false){
+						int z = (int)((Math.random()* fill.length));
+						puzzle[a][j] = fill[z] ;
+					}
+					}
+				}
+			}
+		}
+	}
 }
