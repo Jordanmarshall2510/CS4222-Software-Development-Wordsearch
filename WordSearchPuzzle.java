@@ -1,3 +1,14 @@
+/*************************************
+ *  Student Name: Jordan Marshall                      
+ *
+ *  Student ID: 18256716              
+ *                                     
+ *  Group Members: 	Alannah Ryan 	18232132  
+ *					Shane Donaghy 	18252478
+ *					Jakub Pazej		18260178
+ *
+ *************************************/
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
