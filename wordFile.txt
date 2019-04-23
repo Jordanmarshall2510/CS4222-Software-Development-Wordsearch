@@ -1,6 +1,0 @@
-Car
-Plane
-Boat
-Bike
-Motorbike
-Helicopter
