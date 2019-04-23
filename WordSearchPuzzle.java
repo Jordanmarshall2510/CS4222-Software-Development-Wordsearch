@@ -80,8 +80,9 @@ public class WordSearchPuzzle{
 		}
 	}
 
-	public void showWordSearchPuzzle(){
-		generateWordsearchpuzzle() ;
+	public void showWordSearchPuzzle(boolean hide){
+		if(hide == false)
+        generateWordsearchpuzzle() ;
 		int i,j;
 		for(i=0; i<puzzleWords.size(); i++){
 			System.out.println(puzzleWords.get(i));
