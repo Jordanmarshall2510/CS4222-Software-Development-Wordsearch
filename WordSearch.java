@@ -20,6 +20,7 @@ public class WordSearch {
         puzzleWords = userSpecifiedWords;
         getPuzzleAsGridNoReturn();
         generateWordSearchPuzzle();
+        return userSpecifiedWords;
     }  
 
     public void WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest){
